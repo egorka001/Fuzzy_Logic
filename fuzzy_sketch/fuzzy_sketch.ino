@@ -70,8 +70,6 @@ uint8_t rules[27][4] = {{1, 1, 1, 1},
                  {2, 3, 3, 4}, 
                  {3, 3, 3, 4}};
 
-float max_full[101];
-
 void setup() 
 {
   Serial.begin(9600);
@@ -83,19 +81,19 @@ void setup()
   screen.setScale(3);
   screen.home();
   screen.print("NeoHome");
-  //delay(1000);
+  delay(1000);
 
   screen.clear();
   screen.setScale(2);
   screen.home();
   screen.print("heating");
-  //delay(1000);  
+  delay(1000);  
   screen.print(".");
-  //delay(1000); 
+  delay(1000); 
   screen.print(".");
-  //delay(1000); 
+  delay(1000); 
   screen.print(".");
-  //delay(1000); 
+  delay(1000); 
 
   hum = dht.readHumidity();
   temp = dht.readTemperature();
@@ -218,7 +216,8 @@ uint8_t fuzzy_logic(uint16_t gas, uint8_t hum, uint8_t temp)
       act_max[rules[i][3] - 1] = rules_min[i];
   }
 
-  float a, b, c, d;
+  float a, b, c, d, max_num;
+  float up = 0, down = 0, out;
   for(uint8_t i = 0; i < 101; ++i)
   {
     a = gaussmf(i, 10, 0);
@@ -235,20 +234,14 @@ uint8_t fuzzy_logic(uint16_t gas, uint8_t hum, uint8_t temp)
     if(d > act_max[3])
       d = act_max[3];
 
-    max_full[i] = max4(a, b, c, d);
-  }
-
-  float up = 0, down = 0, out;
-
-  for(uint8_t i = 0; i < 101; ++i)
-  { 
-    up += float(i) * max_full[i];
-    down += max_full[i];
+    max_num = max4(a, b, c, d);
+    up += float(i) * max_num;
+    down += max_num;
   }
 
   out = up / down;
 
-  return up / down;
+  return out;
 }
 
 void out_screen(uint8_t curr_screen_num)
