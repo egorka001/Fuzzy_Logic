@@ -5,7 +5,7 @@
 \contentsline {section}{\numberline {4}Лингвистические переменные}{4}{}%
 \contentsline {section}{\numberline {5}База правил системы}{4}{}%
 \contentsline {section}{\numberline {6}Фаззификация переменных}{5}{}%
-\contentsline {section}{\numberline {7}SciLab и sciFLT}{6}{}%
+\contentsline {section}{\numberline {7}SciLab и sciFLT}{7}{}%
 \contentsline {section}{\numberline {8}Реализация нечёткой логики на МК}{9}{}%
 \contentsline {section}{\numberline {9}Вывод}{10}{}%
 \contentsline {section}{\numberline {10}Список источников}{10}{}%
